@@ -1,5 +1,6 @@
 package gfg.problemoftheday;
 
+import java.util.Arrays;
 import java.util.Map;
 import java.util.TreeMap;
 
@@ -16,24 +17,10 @@ public class Solution {
     }
 
     private static boolean canAttend(int[][] arr) {
-
-        TreeMap<Integer, Integer> map = new TreeMap<>();
-        for (int[] ints : arr) {
-            if (map.containsKey(ints[0])) {
+        Arrays.sort(arr, (a, b) -> a[0]-b[0]);
+        for(int i=0;i< arr.length-1;i++){
+            if(arr[i][1]>arr[i+1][0])
                 return false;
-            }
-            map.put(ints[0], ints[1]);
-        }
-        Integer previousValue = null;
-        for (Map.Entry<Integer, Integer> entry : map.entrySet()) {
-
-            int key = entry.getKey();
-            if (previousValue != null) {
-                if (key > entry.getValue() || previousValue > key) {
-                    return false;
-                }
-            }
-            previousValue = entry.getValue();
         }
         return true;
     }

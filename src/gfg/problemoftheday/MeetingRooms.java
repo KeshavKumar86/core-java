@@ -1,10 +1,9 @@
 package gfg.problemoftheday;
 
 import java.util.Arrays;
-import java.util.Map;
-import java.util.TreeMap;
+import java.util.Comparator;
 
-public class Solution {
+public class MeetingRooms {
     public static void main(String[] args) {
         int[][] arr = {
                 {92, 154},
@@ -17,7 +16,7 @@ public class Solution {
     }
 
     private static boolean canAttend(int[][] arr) {
-        Arrays.sort(arr, (a, b) -> a[0]-b[0]);
+        Arrays.sort(arr, Comparator.comparingInt(a -> a[0]));
         for(int i=0;i< arr.length-1;i++){
             if(arr[i][1]>arr[i+1][0])
                 return false;

@@ -10,7 +10,7 @@ public class StreamExample1 {
             double v = Math.random() * 10_000;
             salary.add(v);
         }
-        //you have to count total number of salary greater than 2000 using traditional loops
+        //you have to count total number of salary greater than 5000 using traditional loops
         int count = 0;
         for (Double element : salary) {
             if (element > 5000) {

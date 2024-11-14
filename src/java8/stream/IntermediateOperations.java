@@ -2,7 +2,9 @@ package java8.stream;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
+import java.util.stream.LongStream;
 import java.util.stream.Stream;
 
 public class IntermediateOperations {
@@ -86,6 +88,38 @@ public class IntermediateOperations {
         int[] filteredArray = Arrays.stream(numbersArray)
                 .filter((int number) -> number > 4).toArray();
         System.out.println("MapToInt Result2: " + Arrays.toString(filteredArray));
+
+        //operation 10: mapToLong(toLongFunction<T>mapper) helps to work with primitive long data type
+        String[] stringArray = {"1", "2", "3", "4"};
+        Stream<String> stringStream = Arrays.stream(stringArray);
+        LongStream longStream = stringStream.mapToLong((String s) -> Long.parseLong(s));
+        long[] longArray = longStream.toArray();
+        System.out.println("MapToLong Result: " + Arrays.toString(longArray));
+
+        //operation 11: mapToDouble(toDoubleFunction<T>mapper) helps to work with
+        // primitive double data type
+        String[] array = {"2.4", "2.5", "8.5", "9.7"};
+        Stream<String> stringStream1 = Arrays.stream(array);
+        DoubleStream doubleStream = stringStream1.mapToDouble((String s) -> Double.parseDouble(s));
+        double[] doubleArray = doubleStream.toArray();
+        System.out.println("MapToDouble Result: " + Arrays.toString(doubleArray));
+
+        //operation 12: takeWhile(Predicate<? super T> predicate) (Java 9+) helps to
+        // Take elements from the stream as long as they match the predicate. Stops as soon as an
+        // element fails the predicate test.
+        Integer[] array1 = {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15};
+        Stream<Integer> integerStream1 = Arrays.stream(array1);
+        Stream<Integer> takeWhileResultStream = integerStream1
+                .takeWhile((Integer element) -> element < 10);
+        System.out.println("TakeWhile Result: " + takeWhileResultStream.toList());
+
+        //operation 13: dropWhile(Predicate<? super T> predicate) (Java 9+) Discards elements as
+        // long as they match the predicate and then takes the rest of the stream.
+        Integer[] integerArray2 = {4, 5, 6, 7, 8, 9, 10, 11, 12, 13};
+        Stream<Integer> integerStream2 = Arrays.stream(integerArray2);
+        Stream<Integer> dropWhileStreamResult = integerStream2
+                .dropWhile((Integer element) -> element < 10);
+        System.out.println("DropWhile Result: " + dropWhileStreamResult.toList());
 
 
     }

@@ -1,6 +1,7 @@
 package gfg.problemoftheday;
 
 import java.util.ArrayList;
+import java.util.TreeSet;
 
 public class Union {
 
@@ -41,5 +42,17 @@ public class Union {
             j++;
         }
         return arrayList;
+    }
+
+    public static ArrayList<Integer> findUnion2(int[] a, int[] b) {
+        // add your code here
+        TreeSet<Integer> treeSet = new TreeSet<>();
+        for (int element : a) {
+            treeSet.add(element);
+        }
+        for (int element : b) {
+            treeSet.add(element);
+        }
+        return new ArrayList<>(treeSet);
     }
 }

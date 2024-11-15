@@ -1,4 +1,4 @@
-package java8.stream;
+package gfg.problemoftheday;
 
 public class SecondLargest {
     // User function Template for Java

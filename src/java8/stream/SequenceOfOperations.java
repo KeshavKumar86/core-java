@@ -21,6 +21,13 @@ public class SequenceOfOperations {
 }
 
 /*
+why lazy processing?
+Generally each element processed sequentially and can perform multiple operations, this feature helps
+stream to fast process the task.
+for example if you need to return any number which is greater than 3, processing will stop at
+4 itself.
+
+
 for sorted() each element should be present in the stream before, but for map, filter, peek it is not
 necessary that all elements should be present, they will process the elements one by one why?
 

@@ -13,15 +13,16 @@ public class PushZerosToEnd {
 
     static void pushZerosToEnd(int[] arr) {
 
-        int nonZeroCount = 0;
-        for (int i = 0; i < arr.length; i++) {
-
-            if (arr[i] != 0) {
-                int temp = arr[i];
-                arr[i] = arr[nonZeroCount];
-                arr[nonZeroCount] = temp;
-                nonZeroCount++;
+        int[] resArray = new int[arr.length];
+        int count = 0;
+        for (int j : arr) {
+            if (j != 0) {
+                resArray[count++] = j;
             }
         }
+        while (count < arr.length) {
+            resArray[count++] = 0;
+        }
+        System.arraycopy(resArray, 0, arr, 0, resArray.length);
     }
 }

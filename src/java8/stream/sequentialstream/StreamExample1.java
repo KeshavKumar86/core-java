@@ -1,4 +1,4 @@
-package java8.stream;
+package java8.stream.sequentialstream;
 
 import java.util.ArrayList;
 import java.util.List;

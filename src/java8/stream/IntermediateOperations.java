@@ -124,3 +124,49 @@ public class IntermediateOperations {
 
     }
 }
+/*
+filter(Predicate<? super T> predicate)
+Filters elements based on a condition. It only includes elements that match the given predicate.
+Example: stream.filter(x -> x > 10)
+
+map(Function<? super T, ? extends R> mapper)
+Transforms each element by applying a function and returns a stream of the transformed elements.
+Example: stream.map(String::toUpperCase)
+
+flatMap(Function<? super T, ? extends Stream<? extends R>> mapper)
+Transforms each element into a stream, then flattens all the streams into a single stream.
+Example: stream.flatMap(Collection::stream)
+
+distinct()
+Removes duplicate elements from the stream, based on the equals() method.
+Example: stream.distinct()
+
+sorted()
+Sorts elements in their natural order or based on a custom comparator if provided.
+Example: stream.sorted()
+
+sorted(Comparator<? super T> comparator)
+Sorts elements based on a given comparator.
+Example: stream.sorted(Comparator.reverseOrder())
+
+limit(long maxSize)
+Limits the number of elements in the stream to a given number.
+Example: stream.limit(5)
+
+skip(long n)
+Skips the first n elements of the stream and processes the remaining.
+Example: stream.skip(3)
+
+peek(Consumer<? super T> action)
+Allows performing an action on each element in the stream without changing the stream.
+Useful for debugging.
+Example: stream.peek(System.out::println)
+
+takeWhile(Predicate<? super T> predicate) (Java 9+)
+Takes elements from the stream as long as they match the predicate. Stops as soon as an element fails the predicate test.
+Example: stream.takeWhile(x -> x < 10)
+
+dropWhile(Predicate<? super T> predicate) (Java 9+)
+Discards elements as long as they match the predicate and then takes the rest of the stream.
+Example: stream.dropWhile(x -> x < 10)
+ */

@@ -1,6 +1,7 @@
 package java8.stream;
 
 import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -95,8 +96,153 @@ public class TerminalOperations {
         List<Integer> findAnyInteger = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9);
         Optional<Integer> findAnyResult = findAnyInteger.stream().findAny();
         System.out.println("FindAnyResult: " + findAnyResult.get());
+
+        //operation 13: iterator() returns the iterator
+        List<String> stringList = Arrays.asList("A", "B", "C", "D", "E");
+        Iterator<String> iterator = stringList.stream().iterator();
+        while (iterator.hasNext()) {
+            System.out.println("Iterator Result: " + iterator.next());
+        }
     }
 }
 /*
 Terminal operations are the ones that produces the result. It triggers the processing of the stream.
+
+Here’s a list of the most frequently used terminal operations in Java Streams and their purposes:
+
+1. forEach()
+Purpose: Performs an action for each element in the stream.
+Returns: void.
+Example:
+java
+Copy code
+List<String> names = List.of("Alice", "Bob", "Charlie");
+names.stream().forEach(System.out::println);
+
+2. collect()
+Purpose: Collects elements of the stream into a collection or other data
+structures (e.g., List, Set, Map).
+Returns: Result of the collection process.
+Example:
+java
+Copy code
+List<String> names = List.of("Alice", "Bob", "Charlie");
+List<String> filteredNames = names.stream()
+    .filter(name -> name.startsWith("A"))
+    .collect(Collectors.toList());
+
+3. reduce()
+Purpose: Reduces the elements in the stream to a single value using an associative accumulator.
+Returns: The reduced value.
+Example:
+java
+Copy code
+List<Integer> numbers = List.of(1, 2, 3, 4, 5);
+int sum = numbers.stream().reduce(0, Integer::sum);
+
+4. toArray()
+Purpose: Converts the elements in the stream into an array.
+Returns: An array of elements.
+Example:
+java
+Copy code
+String[] namesArray = List.of("Alice", "Bob", "Charlie").stream()
+    .toArray(String[]::new);
+
+5. count()
+Purpose: Counts the number of elements in the stream.
+Returns: long (the count of elements).
+Example:
+java
+Copy code
+long count = List.of("Alice", "Bob", "Charlie").stream()
+    .filter(name -> name.startsWith("A"))
+    .count();
+
+6. findFirst()
+Purpose: Returns the first element of the stream, if available.
+Returns: An Optional containing the first element.
+Example:
+java
+Copy code
+Optional<String> firstName = List.of("Alice", "Bob", "Charlie").stream()
+    .findFirst();
+
+7. findAny()
+Purpose: Returns any element from the stream, useful in parallel streams.
+Returns: An Optional containing an element.
+Example:
+java
+Copy code
+Optional<String> anyName = List.of("Alice", "Bob", "Charlie").stream()
+    .findAny();
+
+8. anyMatch()
+Purpose: Checks if any element matches a given predicate.
+Returns: boolean.
+Example:
+java
+Copy code
+boolean hasBob = List.of("Alice", "Bob", "Charlie").stream()
+    .anyMatch(name -> name.equals("Bob"));
+
+9. allMatch()
+Purpose: Checks if all elements match a given predicate.
+Returns: boolean.
+Example:
+java
+Copy code
+boolean allStartWithA = List.of("Alice", "Andy", "Anna").stream()
+    .allMatch(name -> name.startsWith("A"));
+
+10. noneMatch()
+Purpose: Checks if no elements match a given predicate.
+Returns: boolean.
+Example:
+java
+Copy code
+boolean noneStartWithZ = List.of("Alice", "Bob", "Charlie").stream()
+    .noneMatch(name -> name.startsWith("Z"));
+
+11. max()
+Purpose: Finds the maximum element based on a comparator.
+Returns: An Optional containing the maximum element.
+Example:
+java
+Copy code
+Optional<Integer> max = List.of(1, 2, 3, 4, 5).stream()
+    .max(Integer::compare);
+
+12. min()
+Purpose: Finds the minimum element based on a comparator.
+Returns: An Optional containing the minimum element.
+Example:
+java
+Copy code
+Optional<Integer> min = List.of(1, 2, 3, 4, 5).stream()
+    .min(Integer::compare);
+
+13. iterator()
+Purpose: Converts the stream into an Iterator.
+Returns: An Iterator object.
+Example:
+java
+Copy code
+Iterator<String> iterator = List.of("Alice", "Bob", "Charlie").stream()
+    .iterator();
+Summary Table
+Operation	Purpose	Return Type
+forEach()	Perform action on each element	void
+collect()	Gather elements into a collection	Collection or result
+reduce()	Reduce elements to a single value	Result of reduction
+toArray()	Convert elements into an array	Array
+count()	Count elements in the stream	long
+findFirst()	Get the first element	Optional<T>
+findAny()	Get any element	Optional<T>
+anyMatch()	Check if any match a condition	boolean
+allMatch()	Check if all match a condition	boolean
+noneMatch()	Check if none match a condition	boolean
+max()	Get the max element	Optional<T>
+min()	Get the min element	Optional<T>
+
  */

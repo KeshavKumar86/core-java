@@ -10,16 +10,13 @@ public class ReverseArray {
         System.out.println("Reverse Array: " + Arrays.toString(arr));
 
     }
-
     public static void reverseArray(int[] arr) {
         // code here
-        int i = 0, j = arr.length - 1;
-        while (i < j) {
-            int temp = arr[i];
-            arr[i] = arr[j];
-            arr[j] = temp;
-            i++;
-            j--;
+        int[] temp = new int[arr.length];
+        int j = 0;
+        for (int i = arr.length - 1; i >= 0; i--) {
+            temp[j++] = arr[i];
         }
+        System.arraycopy(temp, 0, arr, 0, temp.length);
     }
 }

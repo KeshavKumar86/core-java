@@ -1,12 +1,12 @@
 package java8.stream.questions;
 
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class FindNthHighestSalary {
     public static void main(String[] args) {
-        List<Integer> integerList = Arrays.asList(1, 4, 3, 2, 5, 7, 6, 8);
-        int n = 2;
-        nthHighestNumber(integerList, n);
+
+        int n = 3;
         Map<String, Integer> map = new HashMap<>();
         map.put("Anil", 1000);
         map.put("Bhavna", 1200);
@@ -25,22 +25,25 @@ public class FindNthHighestSalary {
                 .skip(map.size() - n).findFirst();
         optionalEntry.ifPresent((Map.Entry<String,Integer> entry)-> System.out.println("Result: " + entry.getKey()));*/
 
-        Map.Entry<String,Integer> entry = map.entrySet()
+        /*Map.Entry<String,Integer> entry = map.entrySet()
                 .stream()
                 .sorted((Map.Entry<String, Integer> val1, Map.Entry<String, Integer> val2)
                 -> val2.getValue() - val1.getValue())
                 .distinct()
                 .toList().get(n-1);
-        System.out.println("Result: " + entry.getKey());
+        System.out.println("Result: " + entry.getKey());*/
+
+        Map<Integer, List<String>> collect = map.entrySet().stream()
+                .collect(Collectors
+                        .groupingBy(Map.Entry::getValue,
+                                Collectors.mapping(Map.Entry::getKey, Collectors.toList())));
+        Map.Entry<Integer, List<String>> result = collect.entrySet().stream()
+                .sorted((Map.Entry<Integer, List<String>> val1,
+                         Map.Entry<Integer, List<String>> val2)
+                        -> val2.getKey() - val1.getKey()).toList().get(n - 1);
+        System.out.println("Result: " + result);
     }
 
-    private static void nthHighestNumber(List<Integer> integerList, int n) {
-        Optional<Integer> optionalInteger = integerList.stream()
-                .sorted()
-                .skip((integerList.size() - n)).findFirst();
-        optionalInteger.ifPresent((Integer i) -> System.out.println("Result: " + i));
-
-    }
 }
 /*
 Find Nth highest salary using Java Stream

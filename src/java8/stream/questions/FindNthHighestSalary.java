@@ -35,8 +35,8 @@ public class FindNthHighestSalary {
 
         Map<Integer, List<String>> collect = map.entrySet().stream()
                 .collect(Collectors
-                        .groupingBy(Map.Entry::getValue,
-                                Collectors.mapping(Map.Entry::getKey, Collectors.toList())));
+                        .groupingBy(entry->entry.getValue(),
+                                Collectors.mapping(entry-> entry.getKey(), Collectors.toList())));
         Map.Entry<Integer, List<String>> result = collect.entrySet().stream()
                 .sorted((Map.Entry<Integer, List<String>> val1,
                          Map.Entry<Integer, List<String>> val2)

@@ -4,10 +4,10 @@ import java.util.Arrays;
 
 public class RotateArray {
     public static void main(String[] args) {
-        int[] arr = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
+        int[] arr = {1,2,3,4,5};
         System.out.println("Original Array: " + Arrays.toString(arr));
-        int d = 3;
-        rotateArr(arr, d);
+        int d = 2;
+        rotateArrImprove(arr, d);
         System.out.println("Rotated Array: " + Arrays.toString(arr));
     }
 
@@ -20,5 +20,18 @@ public class RotateArray {
             }
             arr[arr.length - 1] = temp;
         }
+    }
+
+    static void rotateArrImprove(int[] arr, int d) {
+
+        int[] temp = new int[d];
+        System.arraycopy(arr, 0, temp, 0, d); //O(d) time
+        int i = 0;
+        int n = arr.length;
+        while ((i + d) < n) { //O(n-d) time
+            arr[i] = arr[i + d];
+            i++;
+        }
+        System.arraycopy(temp,0,arr,(n-d),d); //O(d) time
     }
 }

@@ -4,11 +4,36 @@ import java.util.Arrays;
 
 public class RotateArray {
     public static void main(String[] args) {
-        int[] arr = {1,2,3,4,5};
+        int[] arr = {2, 4, 6, 8, 10, 12, 14, 16, 18, 20};
         System.out.println("Original Array: " + Arrays.toString(arr));
-        int d = 2;
-        rotateArrImprove(arr, d);
+        int d = 3;
+        rotateArrOptimal(arr, d);
         System.out.println("Rotated Array: " + Arrays.toString(arr));
+    }
+
+    /*
+    This method is optimal solution to solve this problem. It is called reversal algorithm
+     */
+    private static void rotateArrOptimal(int[] arr, int d) {
+
+        //reverse the array up to d places
+        reverse(arr, 0, d - 1);
+        //reverse the remaining array
+        reverse(arr, d, arr.length - 1);
+        //reverse the whole array
+        reverse(arr, 0, arr.length - 1);
+    }
+
+    private static void reverse(int[] arr, int low, int high) {
+        int temp;
+        while (low < high) {
+            //swap arr[low] and arr[high]
+            temp = arr[high];
+            arr[high] = arr[low];
+            arr[low] = temp;
+            low++;
+            high--;
+        }
     }
 
     static void rotateArr(int[] arr, int d) {
@@ -32,6 +57,7 @@ public class RotateArray {
             arr[i] = arr[i + d];
             i++;
         }
-        System.arraycopy(temp,0,arr,(n-d),d); //O(d) time
+        System.arraycopy(temp, 0, arr, (n - d), d); //O(d) time
     }
+
 }

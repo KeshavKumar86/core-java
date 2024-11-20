@@ -8,7 +8,7 @@ public class NextPermutation {
         int[] arr = {2, 4, 1, 7, 5, 0};
         System.out.println("Original Array: " + Arrays.toString(arr));
         nextPermutation(arr);
-        System.out.println("Original Array: " + Arrays.toString(arr));
+        System.out.println("Array After Permutation: " + Arrays.toString(arr));
 
     }
 

@@ -28,8 +28,8 @@ public class Employee implements Serializable {
         inputStream.defaultReadObject();
         this.password = new StringBuilder((String) inputStream.readObject()).reverse().toString();
         String serialName = (String) inputStream.readObject();
-        this.age = inputStream.readInt() / 2;
         this.name = serialName.substring(7);
+        this.age = inputStream.readInt() / 2;
     }
 
     @Override

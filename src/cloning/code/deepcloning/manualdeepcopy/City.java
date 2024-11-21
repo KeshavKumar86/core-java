@@ -1,4 +1,4 @@
-package cloning.code.deepcloning;
+package cloning.code.deepcloning.manualdeepcopy;
 
 public class City implements Cloneable {
     private String name;

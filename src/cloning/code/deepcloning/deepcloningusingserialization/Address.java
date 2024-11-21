@@ -1,7 +1,12 @@
-package cloning.code.deepcloning;
+package cloning.code.deepcloning.deepcloningusingserialization;
 
-public class Address implements Cloneable {
-    private City city;
+import java.io.Serial;
+import java.io.Serializable;
+
+public class Address implements Serializable {
+    @Serial
+    private static final long serialVersionUID = 1L;
+    private final City city;
     private String state;
     private final String country;
 
@@ -13,10 +18,6 @@ public class Address implements Cloneable {
 
     public City getCity() {
         return city;
-    }
-
-    public void setCity(City city) {
-        this.city = city;
     }
 
     public String getState() {
@@ -34,17 +35,5 @@ public class Address implements Cloneable {
                 ", state='" + state + '\'' +
                 ", country='" + country + '\'' +
                 '}';
-    }
-
-    @Override
-    public Address clone() {
-        try {
-            // copy mutable state here, so the clone can't change the internals of the original
-            Address address = (Address) super.clone();
-            address.setCity(city.clone());
-            return address;
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError();
-        }
     }
 }

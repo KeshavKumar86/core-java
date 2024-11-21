@@ -1,4 +1,4 @@
-package cloning.code.deepcloning;
+package cloning.code.deepcloning.manualdeepcopy;
 
 import java.util.Arrays;
 import java.util.List;

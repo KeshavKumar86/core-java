@@ -28,8 +28,8 @@ public class Employee implements Serializable {
         inputStream.defaultReadObject();
         this.password = new StringBuilder((String) inputStream.readObject()).reverse().toString();
         String serialName = (String) inputStream.readObject();
-        this.name = serialName.substring(7);
         this.age = inputStream.readInt() / 2;
+        this.name = serialName.substring(7);
     }
 
     @Override
@@ -41,3 +41,30 @@ public class Employee implements Serializable {
                 '}';
     }
 }
+/*
+Write Order Matters:
+
+When data is written using ObjectOutputStream, it is stored in the exact sequence in which it is
+written.
+During deserialization with ObjectInputStream, you must read the data in the same order it was written.
+
+Contract Between writeObject and readObject:
+The sequence and data types of the fields in writeObject must exactly match those in readObject.
+Otherwise, deserialization will fail with errors such as ClassCastException or
+StreamCorruptedException.
+
+What Happens If the Order is Wrong?
+If the readObject calls do not match the order and type of writeObject, you might encounter:
+
+ClassCastException:
+Example: If you try to cast the result of readObject() to String but it was serialized as an Integer,
+the program will fail.
+
+StreamCorruptedException:
+Occurs when the serialized data format does not match the expected format.
+
+Silent Logical Errors:
+If the fields are read out of order but the data types happen to match, you might get incorrect
+values without an immediate exception.
+
+ */

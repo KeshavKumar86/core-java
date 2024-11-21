@@ -13,7 +13,7 @@ public class SerializeObjectCachingExample {
         CacheObject cacheObject = new CacheObject();
         cacheObject.storeToCache(person, file);
         LoadFromCache loadFromCache = new LoadFromCache();
-        Person cachedPerson = loadFromCache.leadFromCache(file);
+        Person cachedPerson = loadFromCache.loadFromCache(file);
         System.out.println("Person Fetched From Cache: " + cachedPerson);
     }
 }

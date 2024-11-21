@@ -7,7 +7,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 
 public class LoadFromCache {
-    public Person leadFromCache(String file) {
+    public Person loadFromCache(String file) {
         try {
             FileInputStream fileInputStream = new FileInputStream(file);
             ObjectInputStream inputStream = new ObjectInputStream(fileInputStream);

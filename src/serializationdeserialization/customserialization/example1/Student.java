@@ -24,9 +24,8 @@ public class Student implements Serializable {
     @Serial
     private void readObject(ObjectInputStream inputStream) throws IOException, ClassNotFoundException {
         inputStream.defaultReadObject();//deserialize instance fields
-        this.password = (String) inputStream.readObject();
-        //String encryptedPassword = (String) inputStream.readObject();
-        //this.password = encryptedPassword.substring(10);
+        String encryptedPassword = (String) inputStream.readObject();
+        this.password = encryptedPassword.substring(10);
     }
 
     @Override

@@ -1,13 +1,11 @@
 package java8.stream.questions;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class QuestionsMain {
+public class QuestionPractice1 {
     public static void main(String[] args) {
 
         //Question1: Given a list of integers, filter out the even numbers & collect the remaining
@@ -94,16 +92,9 @@ public class QuestionsMain {
         System.out.println("Question11 Result: " + resultList);
 
         //Question12: Given a list of Integers, find the average
-        /*List<Integer> integerList6 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
-        Optional<Integer> average = integerList6.stream().reduce((Integer val1, Integer val2) -> {
-            return val1 + val2;
-        }).stream().peek((Integer i)->{
-            int avg = i/
-            return i;
-        });
-        average.ifPresent((Integer element) -> System.out.println
-                ("Question12 Result: " + element));*/
-
+        List<Integer> integerList6 = Arrays.asList(1, 2, 3, 4, 5, 6, 7, 8, 9, 10);
+        OptionalDouble average = integerList6.stream().mapToInt((Integer i) -> i).average();
+        average.ifPresent((double d) -> System.out.println("Average: " + d));
 
         //Question13: print first n natural numbers with given digit n = 10 given digit = 5
         Stream.iterate(0, (Integer n) -> n + 1)
@@ -129,7 +120,26 @@ public class QuestionsMain {
                         toMap((Student s) -> s.getRoll(), (Student s) -> s.getName()));
         System.out.println("Question15 Result: " + resultMap);
 
-        //Question16:
+        //Question16: Given  String return its reverse String
+        String name = "keshav";
+        Stream<String> stringStream = IntStream.range(0, name.length())
+                .mapToObj(i -> name.charAt(name.length() - 1 - i))
+                .map((Character c) -> String.valueOf(c));
+        String reverseName = stringStream.collect(Collectors.joining());
+        System.out.println("Original Name: " + name);
+        System.out.println("Reverse Name: " + reverseName);
+
+        //Question17: Sort an int array in reverse order
+        int[] array = {1, 2, 3, 4, 5, 6, 7, 54, 4, 8};
+        int[] sortedArray = Arrays.stream(array)
+                .mapToObj((int i) -> Integer.valueOf(i))
+                .sorted((Integer val1, Integer val2) -> val2 - val1)
+                .mapToInt((Integer i) -> i)
+                .toArray();
+        System.out.println("Original Array: " + Arrays.toString(array));
+        System.out.println("Sorted Array: " + Arrays.toString(sortedArray));
+
+        //Questions18:
 
     }
 }

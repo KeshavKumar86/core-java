@@ -1,4 +1,6 @@
-package java8.stream.questions;
+package java8.stream.questions.questionpractice1;
+
+import java8.stream.questions.Student;
 
 import java.util.*;
 import java.util.stream.Collectors;

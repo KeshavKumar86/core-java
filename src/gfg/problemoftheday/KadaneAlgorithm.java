@@ -1,29 +1,24 @@
 package gfg.problemoftheday;
 
-import java.math.BigInteger;
-
 public class KadaneAlgorithm {
     public static void main(String[] args) {
-        int[] arr = {5, 4, 1, 7, 8};
+        int[] arr = {-1, -2, -3, -4, -5};
         System.out.println("Result: " + maxSubarraySum(arr));
 
     }
-    //This solution is logically correct. Here we are calculating sum of every sub-array and finding
-    //maximum O(n*n) solution
+
+    //Kadane Algorithm O(n) time solution
     static int maxSubarraySum(int[] arr) {
 
-        int n = arr.length;
-        BigInteger maxSum  = BigInteger.valueOf(Integer.MIN_VALUE);
-
-       for(int i=0;i<n;i++){
-           BigInteger sum = BigInteger.valueOf(0);
-           for(int j = i;j<n;j++){
-               sum = sum.add(BigInteger.valueOf(arr[j]));
-               if(sum.compareTo(maxSum)>0){
-                   maxSum = sum;
-               }
-           }
-       }
-        return (maxSum.intValue());
+        int sum = 0;
+        int maxSum = Integer.MIN_VALUE;
+        for (int i : arr) {
+            sum += i;
+            maxSum = Math.max(maxSum, sum);
+            if (sum < 0) {
+                sum = 0;
+            }
+        }
+        return maxSum;
     }
 }

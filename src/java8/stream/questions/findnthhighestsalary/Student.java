@@ -1,4 +1,4 @@
-package java8.stream.questions;
+package java8.stream.questions.findnthhighestsalary;
 
 public class Student {
     private int roll;

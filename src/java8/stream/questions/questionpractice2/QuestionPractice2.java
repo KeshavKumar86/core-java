@@ -93,7 +93,7 @@ public class QuestionPractice2 {
         System.out.println("Palindrome Words: " + palindromes);
     }
 
-    private static boolean isPalindrome(String word) {
+    public static boolean isPalindrome(String word) {
         int low = 0, high = word.length() - 1;
         while (low < high) {
             if (word.charAt(low++) != word.charAt(high--))

@@ -1,4 +1,4 @@
-package java8.stream.questions;
+package java8.stream.questions.findnthhighestsalary;
 
 import java.util.*;
 import java.util.stream.Collectors;

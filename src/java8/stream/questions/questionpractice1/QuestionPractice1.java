@@ -1,6 +1,6 @@
 package java8.stream.questions.questionpractice1;
 
-import java8.stream.questions.Student;
+import java8.stream.questions.findnthhighestsalary.Student;
 
 import java.util.*;
 import java.util.stream.Collectors;

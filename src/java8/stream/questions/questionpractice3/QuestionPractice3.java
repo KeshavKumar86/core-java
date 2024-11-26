@@ -2,6 +2,7 @@ package java8.stream.questions.questionpractice3;
 
 import java.util.*;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import static java8.stream.questions.questionpractice2.QuestionPractice2.isPalindrome;
 
@@ -65,7 +66,15 @@ public class QuestionPractice3 {
                 (Employee employee) -> employee.department,
                 Collectors.toList()
         ));
-        System.out.println("Question4 Result: " + map);
+        Set<Map.Entry<String,List<Employee>>> set1 = map.entrySet();
+        Map<String, Optional<Employee>> collect5 = set1.stream().collect(Collectors.toMap(
+                (Map.Entry<String, List<Employee>> entry) -> entry.getKey(),
+                (Map.Entry<String, List<Employee>> entry1) -> entry1.getValue().stream()
+                        .sorted((Employee e1, Employee e2) -> (int) (e2.salary - e1.salary))
+                        .skip(1)
+                        .findFirst()
+        ));
+        System.out.println("Question4 Result: " + collect5);
 
         /*5. Concatenate Grouped Strings
         Input:
@@ -100,7 +109,24 @@ public class QuestionPractice3 {
                 (Product p) -> p.category,
                 Collectors.toList()
         ));
+        Set<Map.Entry<String,List<Product>>> entrySet = result.entrySet();
+        Map<String, Optional<Product>> collect2 = entrySet.stream().collect(Collectors.toMap(
+                (Map.Entry<String, List<Product>> entry) -> entry.getKey(),
+                (Map.Entry<String, List<Product>> entry1) -> entry1.getValue().stream()
+                        .max((Product p1, Product p2) -> (int) (p1.price - p2.price))
+        ));
+        System.out.println("Question6 Result: " + collect2);
 
+        //Second Solution
+        Map<String,Product> collect4 = products.stream().collect(Collectors.groupingBy(
+                (Product p) -> p.category,
+                Collectors.collectingAndThen(
+                        Collectors.maxBy((Product p1,Product p2)->(int)(p1.price-p2.price)),
+                        Optional::get
+                )
+
+        ));
+        System.out.println("Question6 Result2: " + collect4);
 
         /*7. Group Words by Palindrome Status
         Input:
@@ -112,7 +138,7 @@ public class QuestionPractice3 {
         Key false: Non-palindromes.*/
         List<String> words2 = Arrays.asList("level", "world", "radar", "Java", "civic",
                 "coding", "madam");
-        Map<Boolean, List<String>> question7Result = words2.stream().collect(Collectors.groupingBy(
+        Map<Boolean, List<String>> question7Result = words2.stream().collect(Collectors.partitioningBy(
                 (String s) -> isPalindrome(s)
         ));
         System.out.println("Question7 Result: " + question7Result);
@@ -125,6 +151,14 @@ public class QuestionPractice3 {
         //Task:
         //Merge the two lists into a single list and count the occurrences of each word.
         // Return a Map<String, Long> where the key is the word, and the value is its count.
+        List<String> list1 = Arrays.asList("apple", "banana", "cherry", "apple", "date");
+        List<String> list2 = Arrays.asList("banana", "date", "elderberry", "fig", "cherry");
+        Map<String,Long> question8Result = Stream.concat(list1.stream(),list2.stream())
+                .collect(Collectors.groupingBy(
+                (String s)->s,
+                Collectors.counting()
+        ));
+        System.out.println("Question8 Result: " + question8Result);
 
         /*9. Average Salary by Department
         Input:
@@ -150,11 +184,20 @@ public class QuestionPractice3 {
         Value: Frequency of that word.*/
         List<String> words3 = Arrays.asList("apple", "banana", "cherry", "apple", "date",
                 "banana", "apple", "cherry", "banana", "date", "banana");
-        Map<String, Long> question10Result = words3.stream().collect(Collectors.groupingBy(
+        Map<String, Long> map1 = words3.stream().collect(Collectors.groupingBy(
                 (String s) -> s,
                 Collectors.counting()
         ));
-        System.out.println(question10Result);
+        Set<Map.Entry<String,Long>> set = map1.entrySet();
+        Map<String, Long> collect3 = set.stream()
+                .sorted((Map.Entry<String, Long> entry1, Map.Entry<String, Long> entry2) ->
+                        Math.toIntExact(entry2.getValue() - entry1.getValue()))
+                .limit(2)
+                .collect(Collectors.toMap(
+                        (Map.Entry<String, Long> entry) -> entry.getKey(),
+                        (Map.Entry<String, Long> entry) -> entry.getValue()
+                        ));
+        System.out.println(collect3);
 
 
     }

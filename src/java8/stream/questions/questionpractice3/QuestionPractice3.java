@@ -17,7 +17,18 @@ public class QuestionPractice3 {
         Find the most frequent character (case-sensitive) across all the strings in the list.
         If there's a tie, return any one of the most frequent characters.*/
         List<String> words = Arrays.asList("stream", "programming", "Java", "functional", "collector");
-        words.stream().collect(Collectors.joining()).toCharArray();
+        Map<Character, Long> collect6 = words.stream().flatMapToInt((String s) -> s.chars())
+                .mapToObj((int c) -> (char) c)
+                .collect(Collectors.groupingBy(
+                        (Character c) -> c,
+                        Collectors.counting()
+                ));
+        char mostFrequent = collect6.entrySet().stream()
+                .max((Map.Entry<Character, Long> entry1, Map.Entry<Character, Long> entry2) ->
+                        (int) (entry2.getValue() - entry1.getValue())
+                ).map((Map.Entry<Character, Long> entry) -> entry.getKey())
+                .orElseThrow(() -> new RuntimeException("No Character Found"));
+        System.out.println("Question1 Result: " + mostFrequent);
 
         /*2. Partition Numbers by Odd and Even
         Input:
@@ -62,18 +73,18 @@ public class QuestionPractice3 {
                 new Employee("Edward", "Marketing", 80000),
                 new Employee("Fiona", "HR", 55000)
         );
-        Map<String, List<Employee>> map = employees.stream().collect(Collectors.groupingBy(
-                (Employee employee) -> employee.department,
-                Collectors.toList()
-        ));
-        Set<Map.Entry<String,List<Employee>>> set1 = map.entrySet();
-        Map<String, Optional<Employee>> collect5 = set1.stream().collect(Collectors.toMap(
-                (Map.Entry<String, List<Employee>> entry) -> entry.getKey(),
-                (Map.Entry<String, List<Employee>> entry1) -> entry1.getValue().stream()
-                        .sorted((Employee e1, Employee e2) -> (int) (e2.salary - e1.salary))
-                        .skip(1)
-                        .findFirst()
-        ));
+        Map<String, Double> collect5 = employees.stream()
+                .collect(Collectors.groupingBy(
+                        (Employee e) -> e.department,
+                        Collectors.collectingAndThen(
+                                Collectors.mapping((Employee e) -> e.salary, Collectors.toList()),
+                                list -> list.stream().sorted(Comparator.reverseOrder())
+                                        .skip(1)
+                                        .findFirst()
+                                        .orElse(0.0)
+
+                        )
+                ));
         System.out.println("Question4 Result: " + collect5);
 
         /*5. Concatenate Grouped Strings
@@ -109,7 +120,7 @@ public class QuestionPractice3 {
                 (Product p) -> p.category,
                 Collectors.toList()
         ));
-        Set<Map.Entry<String,List<Product>>> entrySet = result.entrySet();
+        Set<Map.Entry<String, List<Product>>> entrySet = result.entrySet();
         Map<String, Optional<Product>> collect2 = entrySet.stream().collect(Collectors.toMap(
                 (Map.Entry<String, List<Product>> entry) -> entry.getKey(),
                 (Map.Entry<String, List<Product>> entry1) -> entry1.getValue().stream()
@@ -118,11 +129,11 @@ public class QuestionPractice3 {
         System.out.println("Question6 Result: " + collect2);
 
         //Second Solution
-        Map<String,Product> collect4 = products.stream().collect(Collectors.groupingBy(
+        Map<String, Product> collect4 = products.stream().collect(Collectors.groupingBy(
                 (Product p) -> p.category,
                 Collectors.collectingAndThen(
-                        Collectors.maxBy((Product p1,Product p2)->(int)(p1.price-p2.price)),
-                        Optional::get
+                        Collectors.maxBy((Product p1, Product p2) -> (int) (p1.price - p2.price)),
+                        (Optional<Product> p) -> p.get()
                 )
 
         ));
@@ -153,11 +164,11 @@ public class QuestionPractice3 {
         // Return a Map<String, Long> where the key is the word, and the value is its count.
         List<String> list1 = Arrays.asList("apple", "banana", "cherry", "apple", "date");
         List<String> list2 = Arrays.asList("banana", "date", "elderberry", "fig", "cherry");
-        Map<String,Long> question8Result = Stream.concat(list1.stream(),list2.stream())
+        Map<String, Long> question8Result = Stream.concat(list1.stream(), list2.stream())
                 .collect(Collectors.groupingBy(
-                (String s)->s,
-                Collectors.counting()
-        ));
+                        (String s) -> s,
+                        Collectors.counting()
+                ));
         System.out.println("Question8 Result: " + question8Result);
 
         /*9. Average Salary by Department
@@ -188,7 +199,7 @@ public class QuestionPractice3 {
                 (String s) -> s,
                 Collectors.counting()
         ));
-        Set<Map.Entry<String,Long>> set = map1.entrySet();
+        Set<Map.Entry<String, Long>> set = map1.entrySet();
         Map<String, Long> collect3 = set.stream()
                 .sorted((Map.Entry<String, Long> entry1, Map.Entry<String, Long> entry2) ->
                         Math.toIntExact(entry2.getValue() - entry1.getValue()))
@@ -196,7 +207,7 @@ public class QuestionPractice3 {
                 .collect(Collectors.toMap(
                         (Map.Entry<String, Long> entry) -> entry.getKey(),
                         (Map.Entry<String, Long> entry) -> entry.getValue()
-                        ));
+                ));
         System.out.println(collect3);
 
 

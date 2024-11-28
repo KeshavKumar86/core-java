@@ -1,0 +1,60 @@
+The Collectors.mapping() method in Java's Stream API is a collector used to transform elements in a
+stream before collecting them. It acts as a pre-processing step for data transformation and works in
+conjunction with other collectors, such as Collectors.toList(), Collectors.toSet(), etc.
+
+public static <T, U, A, R> Collector<T, ?, R> mapping(Function<? super T, ? extends U> mapper,
+Collector<? super U, A, R> downstream)
+
+Parameters
+
+mapper (Function<? super T, ? extends U>):
+A function that transforms elements of type T into type U.
+This is where the data transformation logic is applied.
+
+downstream (Collector<? super U, A, R>):
+A collector that processes the transformed elements (U) into the final result (R).
+Returns
+A collector that applies the mapping function (mapper) to the input elements and then collects the
+results using the specified downstream collector.
+
+How It Works
+Input elements (T) from the stream are passed into the mapper function for transformation.
+The transformed elements (U) are then passed to the downstream collector.
+The downstream collector aggregates the transformed elements into the final collection type (R).
+
+Key Features
+
+Pre-processing step:
+mapping() applies a transformation before passing elements to the downstream collector.
+
+Composability:
+It is commonly used in conjunction with collectors like toList(), toSet(), and joining().
+
+Flexible transformation:
+The transformation logic can be any function that maps T to U.
+
+
+When to Use Collectors.mapping()
+When you need to extract or transform specific fields from objects in a stream.
+When working with nested collectors, such as groupingBy or partitioningBy, to preprocess elements within
+groups.
+When you need a clean and concise way to transform and collect data without manually looping or mapping.
+
+
+Alternative Without Collectors.mapping()
+
+You can achieve similar results using map() in the stream pipeline:
+List<String> employeeNames = employees.stream()
+    .map(emp -> emp.getName()) // Transform using map()
+    .collect(Collectors.toList()); // Collect names into a list
+
+However, when used within collectors like groupingBy, Collectors.mapping() is more concise and
+integrates directly.
+
+Summary
+Collectors.mapping() transforms elements in a stream before passing them to another collector.
+It simplifies workflows that require data transformation and collection, especially in nested collectors.
+Common usage includes extracting fields, transforming objects, and grouping/partitioning transformed data.
+
+
+

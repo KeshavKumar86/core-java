@@ -62,7 +62,7 @@ public class Person implements Cloneable {
         try {
             // copy mutable state here, so the clone can't change the internals of the original
             Person person = (Person) super.clone();
-            person.setAddress(person.address.clone());
+            person.setAddress(address.clone());
             person.setDegree(degree.clone());
             return person;
         } catch (CloneNotSupportedException e) {

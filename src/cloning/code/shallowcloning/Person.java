@@ -8,6 +8,8 @@ public class Person implements Cloneable {
     private final double salary;
     private Address address;
     private final List<String> companies;
+    private final Degree degree;
+
 
     public Person(String name, int age, double salary, Address address, List<String> companies, Degree degree) {
         this.name = name;
@@ -37,8 +39,6 @@ public class Person implements Cloneable {
     public Degree getDegree() {
         return degree;
     }
-
-    private final Degree degree;
 
 
     @Override

@@ -1,0 +1,71 @@
+The Collectors.collectingAndThen method in Java is a powerful collector used when you want to apply a
+transformation to the result of another collector. It acts as a post-processing step, allowing you to
+modify or adapt the final result of a stream operation.
+
+Definition
+public static <T, A, R, RR> Collector<T, A, RR> collectingAndThen(
+    Collector<T, A, R> downstream,
+    Function<R, RR> finisher
+)
+Parameters
+
+downstream (Collector<T, A, R>):
+The base collector that gathers the stream elements into an intermediate result (R).
+Examples: Collectors.toList(), Collectors.toSet(), Collectors.groupingBy(), etc.
+
+finisher (Function<R, RR>):
+A function that takes the result of the downstream collector (R) and transforms it into the final
+result (RR).
+This is where the post-processing happens.
+
+Returns
+A new collector that applies the downstream collector and then transforms its result using the finisher
+function.
+
+How It Works
+The downstream collector gathers elements and produces a result (R).
+The finisher function takes this result (R), applies a transformation, and produces the final output (RR).
+
+Common Use Cases
+Applying immutability to the collected result.
+Transforming a collection into a different type.
+Performing a post-processing calculation on the collected data.
+
+Key Concepts
+Downstream Collector
+The collectingAndThen method works by first applying a downstream collector, which can be any standard
+collector:
+
+Collectors.toList()
+Collectors.toSet()
+Collectors.groupingBy()
+Collectors.summingInt()
+Collectors.mapping()
+This step gathers or processes the elements in the stream.
+
+Finisher Function
+The finisher function transforms the result of the downstream collector into the desired final output.
+
+Flexibility: You can perform any type of transformation or post-processing on the collected result.
+Examples:
+Converting a mutable collection to immutable.
+Extracting values from an Optional.
+Transforming a Map or List.
+Advantages of CollectingAndThen
+Post-Processing: Allows you to customize the output after the collection step.
+Immutability Enforcement: Easily make results immutable for safer, defensive programming.
+Streamlining Complex Operations: Combines multiple steps into a single pipeline.
+
+
+Comparison with Other Collectors
+Without collectingAndThen: You would need to collect the result first and then process it manually,
+breaking the stream pipeline.
+With collectingAndThen: You can integrate both collection and post-processing seamlessly in a single step.
+
+Summary
+Collectors.collectingAndThen combines the functionality of a base collector with a transformation step
+on the result.
+It’s ideal for:
+Applying immutability.
+Post-processing collections.
+Combining two steps (collect and transform) into one.

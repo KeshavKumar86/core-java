@@ -1,0 +1,12 @@
+The Factory Design Pattern is one of the Creational Patterns in object-oriented programming
+ that provides an interface for creating objects in a super class but allows subclasses to
+  alter the type of objects that will be created. It is used when the exact type of the object
+  needed isn’t known until runtime, or when the creation logic is complex and should be centralized.
+
+Key Features of the Factory Design Pattern:
+Decouples Object Creation from Use: It abstracts the process of creating objects, making the code
+more modular and scalable.
+Encapsulates Object Creation: Object creation logic is moved to a separate factory class,
+ keeping the client code clean.
+Flexible Object Creation: It provides flexibility to create objects of various types depending
+on the situation.

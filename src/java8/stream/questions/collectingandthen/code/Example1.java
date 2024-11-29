@@ -14,8 +14,9 @@ public class Example1 {
         List<String> names = Arrays.asList("Alice", "Bob", "Charlie");
         List<String> immutableNames = names.stream().collect(Collectors.collectingAndThen(
                 Collectors.toList(),
-                Collections::unmodifiableList
+                list->Collections.unmodifiableList(list)
         ));
+
         System.out.println("Result: " + immutableNames);
 
         // Attempting to modify will throw an UnsupportedOperationException

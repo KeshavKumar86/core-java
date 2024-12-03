@@ -10,6 +10,7 @@ public class PredicateExample {
     public static void main(String[] args) {
 
         /*
+        Predicate is a Functional Interface inside filter intermediate operation of stream API.
         Evaluates this predicate on the given argument.
         Params:
         t – the input argument

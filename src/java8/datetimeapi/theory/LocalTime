@@ -1,0 +1,8 @@
+3.2. Working With LocalTime
+The LocalTime represents time without a date.
+Similar to LocalDate, we can create an instance of LocalTime from the system clock or by using parse
+and of methods.
+Finally, the max, min and noon time of a day can be obtained by constants in LocalTime class.
+This is very useful when performing database queries to find records within a given span of time.
+For example, the below code represents 23:59:59.99:
+LocalTime maxTime = LocalTime.MAX

@@ -1,0 +1,47 @@
+1. Overview
+Java 8 introduced new APIs for Date and Time to address the shortcomings of the older
+java.util.Date and java.util.Calendar.
+
+Part of the java.time package
+Core classes of the new Java 8 project are as LocalDate, LocalTime, LocalDateTime, ZonedDateTime,
+Period, Duration, DateTimeFormatter and their supported APIs.
+
+2. Issues With the Existing Date/Time APIs
+Thread safety – The Date and Calendar classes are not thread safe, leaving developers to deal with the
+headache of hard-to-debug concurrency issues and to write additional code to handle thread safety.
+On the contrary, the new Date and Time APIs introduced in Java 8 are immutable and thread safe, thus
+taking that concurrency headache away from developers.
+API design and ease of understanding – The Date and Calendar APIs are poorly designed with inadequate
+methods to perform day-to-day operations. The new Date/Time API is ISO-centric and follows consistent
+domain models for date, time, duration and periods. There are a wide variety of utility methods that
+support the most common operations.
+ZonedDate and Time – Developers had to write additional logic to handle time-zone logic with the
+old APIs, whereas with the new APIs, handling of time zone can be done with Local and ZonedDate/Time APIs.
+
+Key Features of the Java 8 Date-Time API:
+Immutability: All classes in the java.time package are immutable and thread-safe.
+Separation of Concerns: Separate classes for date, time, and date-time:
+LocalDate: Represents a date without a time zone.
+LocalTime: Represents time without a date or time zone.
+LocalDateTime: Combines date and time without a time zone.
+ZonedDateTime: Represents a date-time with a time zone.
+Time Zones: Support for multiple time zones with ZoneId and ZoneOffset.
+Utility Classes: Provides classes like Period and Duration for measuring time.
+
+Formatting and Parsing: The DateTimeFormatter class simplifies date and time formatting and parsing.
+3. LocalDate, LocalTime and LocalDateTime
+The most commonly used classes are LocalDate, LocalTime and LocalDateTime. As their names indicate,
+they represent the local date/time from the context of the observer.
+We mainly use these classes when time zones are not required to be explicitly specified in the context.
+
+3.1. Working With LocalDate
+The LocalDate represents a date in ISO format (yyyy-MM-dd) without time. We can use it to store dates
+like birthdays and paydays.
+An instance of current date can be created from the system clock:
+LocalDate localDate = LocalDate.now();
+
+And we can get the LocalDate representing a specific day, month and year by using the of method or
+the parse method.
+For example, these code snippets represent the LocalDate for February 20, 2015:
+LocalDate.of(2015, 02, 20);
+LocalDate.parse("2015-02-20");

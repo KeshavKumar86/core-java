@@ -8,13 +8,13 @@ public class LocalTimeExample {
         /*
         Obtains the current time from the system clock in the default time-zone
          */
-        LocalTime currentTime = LocalTime.now();
+        LocalTime currentTime = LocalTime.now(); //Current Time: 20:51:40.594175800
         System.out.println("Current Time: " + currentTime);
 
         /*
         Obtains an instance of LocalTime from an hour, minute and second
          */
-        LocalTime time = LocalTime.of(12, 30, 45);
+        LocalTime time = LocalTime.of(12, 30, 45);//Time: 12:30:45
         System.out.println("Time: " + time);
 
         /*

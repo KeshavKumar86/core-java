@@ -1,0 +1,10 @@
+3.3. Working With LocalDateTime
+LocalDateTime is used to represent a combination of date and time. This is the most commonly used
+class when we need a combination of date and time.
+
+An instance of LocalDateTime can be obtained from the system clock similar to LocalDate and LocalTime:
+LocalDateTime.now();
+The below code samples explain how to create an instance using the factory “of” and “parse” methods.
+The result would be a LocalDateTime instance representing February 20, 2015, 6:30 a.m.:
+LocalDateTime.of(2015, Month.FEBRUARY, 20, 06, 30);
+LocalDateTime.parse("2015-02-20T06:30:00");

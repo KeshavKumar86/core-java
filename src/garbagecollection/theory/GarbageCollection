@@ -1,0 +1,104 @@
+In Java, Garbage Collection (GC) is a memory management process that automatically reclaims memory by
+deleting objects that are no longer reachable or in use by the application. It ensures that the heap
+space is efficiently utilized, minimizing the risks of memory leaks and optimizing application performance.
+
+1. What is Garbage Collection?
+Garbage Collection is the process of identifying and discarding unused objects to free up memory,
+allowing new objects to utilize the reclaimed space. This process is automatic in Java, unlike in
+languages like C or C++, where memory allocation and deallocation must be handled manually.
+
+2. The Heap and Object Lifecycle
+Java objects are stored in the heap, which is divided into:
+
+Young Generation
+Eden Space: New objects are created here.
+Survivor Spaces (S0 and S1): Objects that survive garbage collection in the Eden space are moved here.
+Old Generation (Tenured Generation): Long-lived objects are moved here after surviving multiple
+garbage collections.
+Metaspace: Stores class metadata and is separate from the heap.
+
+3. How Does Garbage Collection Work?
+Phases of Garbage Collection
+Mark Phase:
+The GC identifies all live (reachable) objects. It does so by traversing the "roots"
+(references from thread stacks, static fields, etc.) and marking objects that are reachable.
+Sweep Phase:
+Unreachable objects are identified and their memory is reclaimed.
+Compact Phase (optional):
+The heap is defragmented by moving objects to contiguous memory locations to avoid fragmentation.
+Root Sources for GC Marking:
+Local variables in stack frames
+Static variables in classes
+Active threads
+
+4. Types of Garbage Collectors in Java
+4.1 Serial Garbage Collector
+Single-threaded and works best for applications with a single CPU.
+Suitable for simple desktop applications or single-threaded environments.
+4.2 Parallel Garbage Collector
+Uses multiple threads for both minor and major garbage collection.
+Suitable for applications that run on multi-threaded environments and prioritize throughput.
+4.3 Concurrent Mark-Sweep (CMS) Garbage Collector
+Focuses on reducing GC pauses by performing most of the GC work concurrently with the application threads.
+Divided into initial mark, concurrent mark, remark, and concurrent sweep phases.
+Deprecated in Java 9 and replaced by the G1 GC.
+4.4 G1 Garbage Collector (Garbage First)
+Divides the heap into equal-sized regions and collects regions with the most garbage first.
+Performs incremental compaction, making it more efficient for large heaps and low-latency applications.
+4.5 Z Garbage Collector (ZGC)
+Ultra-low latency collector that performs most GC tasks concurrently.
+Scalable for heaps ranging from a few megabytes to terabytes.
+4.6 Shenandoah Garbage Collector
+Focuses on low-pause times by compacting memory concurrently.
+Available from JDK 12 and onwards.
+
+6. Common Garbage Collection Algorithms
+6.1 Stop-the-World (STW)
+During certain GC phases, all application threads are paused to prevent modification of objects
+while the GC is working.
+6.2 Copying Collection
+Used in the young generation. It copies live objects to a survivor space, leaving behind unused
+objects for reclamation.
+6.3 Mark-Sweep-Compact
+Mark: Identifies live objects.
+Sweep: Reclaims memory from dead objects.
+Compact: Reduces fragmentation by moving live objects together.
+
+7. JVM Tuning and Garbage Collector Selection
+You can customize garbage collection behavior using JVM options:
+
+Serial GC: -XX:+UseSerialGC
+Parallel GC: -XX:+UseParallelGC
+G1 GC: -XX:+UseG1GC
+ZGC: -XX:+UseZGC
+Shenandoah: -XX:+UseShenandoahGC
+Heap size configurations:
+
+-Xms (initial heap size)
+-Xmx (maximum heap size)
+
+9. Best Practices for Effective GC
+Optimize Object Creation:
+Avoid creating unnecessary objects.
+Reuse objects when possible.
+Reduce Object References:
+Nullify references to large objects when no longer needed.
+Use Appropriate Data Structures:
+Choose efficient collections (e.g., ArrayList over LinkedList for most scenarios).
+Tune JVM Settings:
+Tailor GC algorithms and heap sizes for specific application needs.
+
+10. Common Challenges
+Long GC Pauses:
+Occurs during "stop-the-world" events.
+Mitigated using concurrent or low-latency collectors like G1, ZGC, or Shenandoah.
+OutOfMemoryError:
+Happens if GC cannot reclaim enough memory or heap space is exhausted.
+Heap Fragmentation:
+Compaction in the GC helps reduce this issue.
+
+Example: Forcing Garbage Collection
+You can explicitly request garbage collection using:
+System.gc();
+Runtime.getRuntime().gc();
+Note: This is a suggestion to the JVM and not guaranteed to trigger GC immediately.

@@ -1,0 +1,119 @@
+In Java, Optional is a container object that can hold either a value (of a specified type) or no
+value (null). It was introduced in Java 8 as a way to deal with the problem of null references and
+to avoid NullPointerExceptions by providing a more explicit way to handle optional values.
+
+Why Use Optional?
+To Avoid NullPointerException: Optional provides methods that can help handle missing or null values more
+safely.
+To Express Intent: It makes your intentions clear when a value might be absent or optional, rather than
+using null.
+
+Declaring an Optional
+You can create an Optional in several ways:
+
+Empty Optional: Represents a value that is absent.
+Optional<String> empty = Optional.empty();
+
+Non-empty Optional: Represents a value that is present.
+Optional<String> name = Optional.of("Alice");
+
+Nullable Optional: You can create an Optional that may contain a null value.
+Optional<String> nullable = Optional.ofNullable(null); // Can be null
+
+Checking if a Value is Present
+isPresent(): Returns true if a value is present, otherwise false.
+Optional<String> name = Optional.of("Alice");
+if (name.isPresent()) {
+    System.out.println(name.get()); // "Alice"
+}
+
+ifPresent(): If a value is present, it performs the given action.
+Optional<String> name = Optional.of("Alice");
+name.ifPresent(n -> System.out.println("Hello, " + n)); // "Hello, Alice"
+
+Getting the Value
+get(): Returns the value if present, but throws NoSuchElementException if the value is absent.
+Optional<String> name = Optional.of("Alice");
+System.out.println(name.get()); // "Alice"
+Be cautious when using get(), as it can throw an exception if the value is missing.
+
+Providing Default Values
+orElse(): Returns the value if present, otherwise returns a default value.
+Optional<String> name = Optional.ofNullable(null);
+System.out.println(name.orElse("Default Name")); // "Default Name"
+
+orElseGet(): Returns the value if present, otherwise invokes a supplier function to provide a
+default value.
+Optional<String> name = Optional.ofNullable(null);
+System.out.println(name.orElseGet(() -> "Generated Default")); // "Generated Default"
+
+Handling Absence of Value
+orElseThrow(): Returns the value if present, otherwise throws an exception (customizable).
+Optional<String> name = Optional.ofNullable(null);
+System.out.println(name.orElseThrow(() -> new IllegalArgumentException("Value is missing"))
+
+Summary of Key Methods:
+empty()	Returns an empty Optional
+of()	Returns an Optional containing a non-null value
+ofNullable()	Returns an Optional that may contain null
+isPresent()	Checks if a value is present
+ifPresent()	Performs an action if a value is present
+get()	Retrieves the value, throws exception if absent
+orElse()	Returns the value or a default value if absent
+orElseGet()	Returns the value or a default computed value
+orElseThrow()	Returns the value or throws an exception
+map()	Transforms the value if present
+flatMap()	Transforms the value and flattens the result
+filter()	Returns an Optional if the value satisfies a condition
+Using Optional appropriately can make your code cleaner, safer, and more expressive. However, it should
+not be used everywhere, and you should carefully decide when its use improves the readability and
+maintainability of your code.
+
+JDK 9 Optional API New Methods
+The release of Java 9 added even more new methods to the Optional API:
+
+or() method for providing a supplier that creates an alternative Optional
+ifPresentOrElse() method that allows executing an action if the Optional is present or another action if not
+stream() method for converting an Optional to a Stream.
+14.1. The or() Method
+Sometimes, when our Optional is empty, we want to execute some other action that also returns an Optional.
+Before the JDK 9, the Optional class had only the orElse() and orElseGet() methods but both need to
+return unwrapped values.
+Java 9 introduces the or() method that returns another Optional lazily if our Optional is empty.
+If our first Optional has a defined value, the lambda passed to the or() method will not be invoked,
+and the value will not be calculated and returned:
+In the case of Optional being empty, the returned result will be the same as the defaultValue:
+    String defaultString = "default";
+    Optional<String> value = Optional.empty();
+    Optional<String> defaultValue = Optional.of(defaultString);
+    Optional<String> result = value.or(() -> defaultValue);
+
+The ifPresentOrElse() method is created exactly for such scenarios. We can pass a Consumer that will be
+invoked if the Optional is defined, and a Runnable that will be executed if the Optional is empty.
+    Optional<String> value = Optional.empty();
+    AtomicInteger successCounter = new AtomicInteger(0);
+    AtomicInteger onEmptyOptionalCounter = new AtomicInteger(0);
+
+    value.ifPresentOrElse(
+      v -> successCounter.incrementAndGet(),
+      onEmptyOptionalCounter::incrementAndGet);
+
+    assertThat(successCounter.get()).isEqualTo(0);
+    assertThat(onEmptyOptionalCounter.get()).isEqualTo(1);
+
+14.3. The stream() Method
+The last method, which is added to the Optional class in Java 9, is the stream() method.
+Java has a very fluent and elegant Stream API that can operate on the collections and utilizes many
+functional programming concepts. The newest Java version introduces the stream() method on the Optional
+class that allows us to treat the Optional instance as a Stream.
+Let’s say that we have a defined Optional and we are calling the stream() method on it. This will
+create a Stream of one element on which we can use all the methods that are available in the Stream API:
+
+
+16. Optional and Serialization
+As discussed above, Optional is meant to be used as a return type. Trying to use it as a field type
+is not recommended.
+Additionally, using Optional in a serializable class will result in a NotSerializableException.
+Our article Java Optional as Return Type further addresses the issues with serialization.
+And, in Using Optional With Jackson, we explain what happens when Optional fields are serialized,
+along with a few workarounds to achieve the desired results.

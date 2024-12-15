@@ -5,14 +5,14 @@ import java.util.List;
 
 public class StreamExample1 {
     public static void main(String[] args) {
-        List<Double> salary = new ArrayList<>();
+        List<Double> salaryList = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             double v = Math.random() * 10_000;
-            salary.add(v);
+            salaryList.add(v);
         }
         //you have to count total number of salary greater than 5000 using traditional loops
         int count = 0;
-        for (Double element : salary) {
+        for (Double element : salaryList) {
             if (element > 5000) {
                 count++;
             }
@@ -21,7 +21,7 @@ public class StreamExample1 {
 
         //Now count using java 8 Stream
         long result;
-        result = salary.stream().filter((Double element) -> element > 5000).count();
+        result = salaryList.stream().filter((Double element) -> element > 5000).count();
         System.out.println("Total Number of Salary>5000 using java Stream: " + result);
     }
 }
@@ -38,23 +38,24 @@ Non-modifying: Streams do not modify the source; instead, they return a new stre
 Types of Streams
 Sequential Streams: Process elements one at a time.
 Parallel Streams: Divide the elements into substreams and process them concurrently.
-Common Stream Operations
-Intermediate Operations:
 
+Common Stream Operations:
+
+Intermediate Operations:
 Transform the stream but don’t terminate it.
 Examples: filter(), map(), sorted(), distinct(), limit(), etc.
-Terminal Operations:
 
+Terminal Operations:
 Produce a result or a side-effect and terminate the stream.
 Examples: collect(), forEach(), reduce(), count(), etc.
-Short-circuiting Operations:
 
+Short-circuiting Operations:
 Stop processing as soon as a condition is met.
 Examples: findFirst(), findAny(), anyMatch(), allMatch(), noneMatch(), etc.
+
 Code Examples
 Example 1: Filtering a List
-java
-Copy code
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -68,8 +69,7 @@ public class StreamExample {
     }
 }
 Example 2: Mapping and Collecting
-java
-Copy code
+
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -86,8 +86,7 @@ public class StreamMapExample {
     }
 }
 Example 3: Reducing a Stream
-java
-Copy code
+
 import java.util.Arrays;
 import java.util.List;
 
@@ -102,8 +101,7 @@ public class StreamReduceExample {
     }
 }
 Example 4: Using Parallel Streams
-java
-Copy code
+
 import java.util.stream.IntStream;
 
 public class ParallelStreamExample {
@@ -112,9 +110,10 @@ public class ParallelStreamExample {
             .forEach(num -> System.out.println(Thread.currentThread().getName() + " processing " + num));
     }
 }
+
 Key Notes
 Streams are not data structures. They are wrappers for data sources (e.g., collections, arrays).
 A stream can only be operated upon once. Reusing it will throw an IllegalStateException.
 Use parallel streams cautiously, as they may not always improve performance.
-If you’re planning to use streams in a real project or want an example tied to a specific scenario, feel free to ask!
+
  */

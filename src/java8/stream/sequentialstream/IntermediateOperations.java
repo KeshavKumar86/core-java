@@ -163,7 +163,8 @@ Useful for debugging.
 Example: stream.peek(System.out::println)
 
 takeWhile(Predicate<? super T> predicate) (Java 9+)
-Takes elements from the stream as long as they match the predicate. Stops as soon as an element fails the predicate test.
+Takes elements from the stream as long as they match the predicate. Stops as soon as an element
+fails the predicate test.
 Example: stream.takeWhile(x -> x < 10)
 
 dropWhile(Predicate<? super T> predicate) (Java 9+)

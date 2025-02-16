@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 import java.util.stream.Stream;
 
-public class QuestionPractice1 {
+public class  QuestionPractice1 {
     public static void main(String[] args) {
 
         //Question1: Given a list of integers, filter out the even numbers & collect the remaining

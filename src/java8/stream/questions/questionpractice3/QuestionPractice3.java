@@ -209,7 +209,5 @@ public class QuestionPractice3 {
                         (Map.Entry<String, Long> entry) -> entry.getValue()
                 ));
         System.out.println(collect3);
-
-
     }
 }
